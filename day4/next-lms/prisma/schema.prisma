@@ -1,0 +1,123 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// Authentication Model
+model User {
+  id                      String   @id @default(cuid())
+  name                    String?
+  email                   String?  @unique
+  password                String?
+  profileAvatar           String?
+  isEmailVerified         Boolean?
+  emailVericationCode     Int?
+  emialVerificationExpiry DateTime
+  role                    Role     @default(STUDENT)
+  createdAt               DateTime
+  updatedAt               DateTime
+
+  // Relationships
+  enrollments Enrollment[]
+  progress    Progress[]
+}
+
+enum Role {
+  STUDENT
+  ADMIN
+}
+
+// LMS CORE MODELS (Courses & Videos)
+
+model Course {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  prize        String
+  thumbnailUrl String?
+  createdAt    DateTime
+  updatedAt    DateTime
+
+  // relationships
+  modules     Module[]
+  enrollments Enrollment[]
+}
+
+model Module {
+  id       String @id @default(cuid())
+  title    String
+  order    Int
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  // Relationships
+  videos  Video[]
+  quizzes Quiz[]
+}
+
+model Video {
+  id       String @id @default(cuid())
+  title    String
+  videoUrl String
+  moduleId String
+  orderId  String
+  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  // relations
+  progress Progress[]
+}
+
+// INTERACTIVITY MODELS (Quizzes)
+
+model Quiz {
+  id       String @id @default(cuid())
+  title    String
+  moduleId String
+  module   Module @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+
+  // relationships
+  questions Question[]
+}
+
+model Question {
+  id            String   @id @default(cuid())
+  quesId        String
+  quiz          Quiz     @relation(fields: [quesId], references: [id], onDelete: Cascade)
+  text          String
+  options       String[]
+  correctAnswer String
+}
+
+// RELATIONSHIP & TRACKING MODELS
+
+model Enrollment {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, courseId])
+}
+
+model Progress {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  videoId     String
+  video       Video?   @relation(fields: [videoId], references: [id], onDelete: Cascade)
+  isCompleted Boolean
+  updatedAt   DateTime @updatedAt
+
+  @@unique([userId, videoId])
+}
