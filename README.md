@@ -7,4 +7,5 @@
 - Day4: Worked on mini project named next-lms in this I learnt about "How to create connection with postgres database & how to integrate neon auth in our projects. Also learnt about how to write its models."
 - Day5: Learned Express middleware architecture, implemented a production-ready rate limiter with express-rate-limit, created reusable validation middleware using Zod, explored TypeScript declaration merging, understood Request type augmentation, fixed Express type issues, practiced Git history cleanup and repository management.
 - Day6: Learned how to securely hash and verify passwords using bcrypt, implemented JWT-based authentication, understood how to generate and verify access tokens, handled JWT-related errors like expired and invalid tokens in TypeScript, and also reviewed some essential Git commands for staging, committing, and amending commits.
-- Day7:
+- Day7: Learned secure password hashing and verification with bcrypt, implemented JWT-based authentication for access and refresh tokens, handled JWT-specific errors and custom error responses in TypeScript, explored authentication utility design, resolved ESM/CommonJS import issues with jsonwebtoken, and practiced Git workflows including staging changes, amending commits, and updating commit messages.
+- Day8:
