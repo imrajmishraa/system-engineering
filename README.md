@@ -13,4 +13,7 @@
 - Day10: Built an autonomous AI Research Agent backend with Express, TypeScript, and MongoDB/Mongoose, implementing a Plan→Act→Observe execution loop with Gemini API tool calling (web search, page reading, sandboxed code execution via Docker, and scoped file I/O). Added JWT-based authentication, centralized error handling (Mongoose, JWT, Multer, Zod, rate-limit, Redis), session/task persistence, file upload support via Multer, and a Next.js/TypeScript client for the chat interface.
 - Day11-19: Busy in admission for MCA.
 - Day20: Added Docker support, refactored backend error handling, improved server configuration and async utilities, and organized changes into clean, logical Git commits.
-- Day21: 
+- Day21: Implemented authentication middleware, centralized request validation and error handling, added health check routes, improved JWT and custom error management, implemented secure logout with refresh token handling, and refined the overall HTTP application structure.
+- Day22: Enhanced authentication flow with refresh token management, improved MongoDB connection handling and environment configuration, strengthened backend stability, and continued refining the server architecture.
+- Day23: Expanded the Kanban backend by introducing controllers, routes, validators, and custom error handling for boards, columns, cards, search, and file uploads. Integrated Kanban routes into the application, improved authorization flow, tested APIs using Postman, and organized all changes into structured Git commits.
+
